@@ -1,0 +1,22 @@
+# Build output
+build/
+*.o
+*.exe
+sim3
+
+# Generated figures (run `make figures`; curated copies live in docs/figures/)
+figs/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
