@@ -6,6 +6,29 @@ A micromouse plans its speed run with a table of how long each motion primitive 
 
 This project simulates that problem and compares ways of handling it. The main one is **AMS (Adaptive Model Switching)**: it learns per-primitive slowdowns from the robot's own exploration run, and switches to the learned cost model only when the drift is significant.
 
+<p align="center">
+  <img src="docs/figures/maze_trace.png" width="360" alt="Maze 0: exploration coverage and speed-run path">
+  <img src="docs/figures/e1_main.png" width="400" alt="Success rate and time overhead vs. Oracle">
+</p>
+
+## Results at a glance
+
+Success rate over 1,000 trials per cell (100 mazes × 10 reps), experiment E1:
+
+| Scenario | Fixed | Fixed-Safe | VC | AMS | Hybrid-Med | Oracle |
+|---|---|---|---|---|---|---|
+| S0 nominal | 99.9 % | 100 % | 99.9 % | 99.9 % | 99.9 % | 99.9 % |
+| S1 voltage sag | 0 % | 100 % | 99.9 % | 99.9 % | 99.9 % | 99.9 % |
+| S2 friction / heating | 0 % | 100 % | 0 % | 99.9 % | 99.9 % | 99.9 % |
+| S3 combined | 0 % | 100 % | 0 % | 99.9 % | 99.9 % | 99.9 % |
+
+- **Fixed** fails as soon as the robot is slower than its 2 % margin.
+- **Fixed-Safe** (35 % margin) always finishes, but is 10.6–32.3 % slower than the Oracle.
+- **VC** (voltage compensation) only fixes slowdowns that affect every primitive equally.
+- **AMS** and **Hybrid-Med** learn the per-primitive slowdown during exploration and finish within 0.05 % of Oracle time.
+
+More figures are in [docs/figures](docs/figures).
+
 ## Features
 
 - **Braided 16 × 16 mazes** with loops and an open 2 × 2 goal, so the time-optimal planner has real route choices.
