@@ -1,5 +1,8 @@
 # AMS Micromouse
 
+[![build](https://github.com/vidit-16/AMS-Micromouse/actions/workflows/build.yml/badge.svg)](https://github.com/vidit-16/AMS-Micromouse/actions/workflows/build.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A drift-aware cost-model simulator for micromouse robots.
 
 A micromouse plans its speed run with a table of how long each motion primitive takes (one cell forward, 90° pivot, 180° pivot). On a real robot those times drift: the battery sags, the floor and tyres change, and the motors heat up. If the robot commands times that are too short, it loses track and crashes. If it adds a big safety margin, it is slow.

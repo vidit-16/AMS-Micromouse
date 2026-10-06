@@ -1,0 +1,41 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build simulator
+        run: make sim
+
+      - name: Smoke test (run mode)
+        run: |
+          ./build/micromouse_sim nmazes=2 reps=1 b0=0.9 rhoP=0.12 > out.csv
+          cat out.csv
+          test "$(wc -l < out.csv)" -eq 17   # header + 2 mazes x 1 rep x 8 strategies
+
+      - name: Smoke test (trace mode)
+        run: |
+          ./build/micromouse_sim mode=trace maze=0 braid=0.05 > trace.txt
+          head -c 300 trace.txt; echo
+          if cmp -s trace.txt results/trace_maze0.txt; then echo "trace matches committed results"; else echo "::warning::trace differs from results/trace_maze0.txt"; fi
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      - name: Generate figures from committed results
+        run: |
+          make figures
+          ls figs
+          test "$(ls figs/*.png | wc -l)" -eq 9
