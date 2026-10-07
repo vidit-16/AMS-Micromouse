@@ -1,0 +1,24 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "AMS Micromouse: a drift-aware cost-model simulator for micromouse robots"
+type: software
+authors:
+  - given-names: Vidit
+    family-names: Choudhary
+    alias: vidit-16
+  - given-names: Saransh
+    family-names: Baid
+    alias: Saraid10
+  - given-names: Sakshi
+    family-names: Bhongle
+    alias: sakshibhongle1221
+version: "3.0"
+date-released: "2026-10-09"
+license: MIT
+repository-code: "https://github.com/vidit-16/AMS-Micromouse"
+keywords:
+  - micromouse
+  - robotics
+  - path planning
+  - simulation
+  - adaptive cost model
