@@ -93,6 +93,14 @@ The repository already contains the full results, so `make figures` works straig
 
 Experiment definitions are in [docs/experiments.md](docs/experiments.md).
 
+## Authors
+
+- **Vidit Choudhary** ([@vidit-16](https://github.com/vidit-16))
+- **Saransh Baid** ([@Saraid10](https://github.com/Saraid10))
+- **Sakshi Bhongle** ([@sakshibhongle1221](https://github.com/sakshibhongle1221))
+
+If you use this simulator, please cite it with [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button).
+
 ## License
 
 [MIT](LICENSE) © 2026 Vidit Choudhary, Saransh Baid, Sakshi Bhongle
