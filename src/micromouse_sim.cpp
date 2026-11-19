@@ -8,8 +8,9 @@
 //    at exploration speed) and optional outlier samples during exploration.
 //  * The robot returns to the start cell after exploration; the speed run starts there.
 //  * Voltage sensor model for VC/Hybrid: measured b = b * gain * (1 + noise).
-//  * Strategies: Fixed, Fixed-Safe, VC (voltage-compensated), AMS (mean / median, threshold tau),
-//    Hybrid (VC + learned residual; mean or median), Oracle (reference).
+//  * Strategies: Fixed, Fixed-Safe, VC (voltage-compensated), VC-Margin (VC plus fixed friction
+//    allowances), AMS (mean / median, threshold tau), Hybrid (VC x learned residual; mean or median),
+//    Oracle (reference).
 //
 // Usage: ./build/micromouse_sim key=value ...   (see Params below for keys)
 
@@ -26,10 +27,11 @@ const char* PNAME[4]={"F","U","R","L"};
 
 struct Params {
     int nmazes=100, reps=10, W=16, H=16;
-    double braid=0.10;                 // fraction of remaining interior walls removed
+    double braid=0.05;                 // fraction of remaining interior walls removed
     double b0=1.0, kappa=0.0;          // b(T)=max(0.3, b0 - kappa*T[s])
     double rhoF=0.0, rhoP=0.0;         // residual slowdown, forward / pivots
-    double sigma=0.01, margin=0.02, safe_margin=0.35;
+    double sigma=0.01, margin=0.02, safe_margin=0.30;
+    double vcmF=0.05, vcmP=0.20;       // VC-Margin: extra margins on straights / pivots
     double tau=0.0;                    // AMS drift threshold (%)
     double chi=1.0;                    // exploration transfer factor
     double outlier=0.0;                // probability an exploration sample is an outlier
@@ -127,8 +129,8 @@ struct World {
     double speedReq(int q){ return P.cS[q]*trueFactor(q)*(1.0+noise()); }
 };
 
-enum Strat { FIXED=0, SAFE, VC, AMS, AMSM, HYBRID, ORACLE, HYBRIDM, NSTRAT };
-const char* SNAME[NSTRAT]={"Fixed","Fixed-Safe","VC","AMS","AMS-Med","Hybrid","Oracle","Hybrid-Med"};
+enum Strat { FIXED=0, SAFE, VC, AMS, AMSM, HYBRID, ORACLE, HYBRIDM, VCM, NSTRAT };
+const char* SNAME[NSTRAT]={"Fixed","Fixed-Safe","VC","AMS","AMS-Med","Hybrid","Oracle","Hybrid-Med","VC-Margin"};
 
 struct Res { bool ok=false; double time=0, explore=0; int steps=0, fail_step=-1; bool switched=false, replanned=false;
              double replan_gain=0, ff_gain=0, maxdrift=0, b_run=0; array<double,4> est{}; array<int,4> n{}; };
@@ -188,6 +190,7 @@ Res runTrial(const Maze& m,int strat,const Params& P,uint32_t seed,vector<pair<i
     for(int q=0;q<4;q++){
         double f=factor[q];
         if(strat==VC) f=1.0/w.bMeas();
+        if(strat==VCM) f=(1.0+(q==F?P.vcmF:P.vcmP))/w.bMeas();
         if(strat==HYBRID||strat==HYBRIDM) f=factor[q]/w.bMeas();
         if(strat==ORACLE) f=w.trueFactor(q);
         planC[q]=P.cS[q]*f;
@@ -210,6 +213,7 @@ Res runTrial(const Maze& m,int strat,const Params& P,uint32_t seed,vector<pair<i
             case FIXED: c=P.cS[q]*(1+P.margin); break;
             case SAFE:  c=P.cS[q]*(1+P.safe_margin); break;
             case VC:    c=P.cS[q]/w.bMeas()*(1+P.margin); break;
+            case VCM:   c=P.cS[q]*(1+(q==F?P.vcmF:P.vcmP))/w.bMeas()*(1+P.margin); break;
             case HYBRID: case HYBRIDM: c=P.cS[q]*factor[q]/w.bMeas()*(1+P.margin); break;
             case ORACLE:c=P.cS[q]*w.trueFactor(q)*(1+P.margin); break;
             default:    c=P.cS[q]*factor[q]*(1+P.margin);
@@ -227,7 +231,7 @@ int main(int argc,char** argv){
         if(k=="mode") mode=v; else if(k=="nmazes") P.nmazes=stoi(v); else if(k=="reps") P.reps=stoi(v);
         else if(k=="braid") P.braid=stod(v); else if(k=="b0") P.b0=stod(v); else if(k=="kappa") P.kappa=stod(v);
         else if(k=="rhoF") P.rhoF=stod(v); else if(k=="rhoP") P.rhoP=stod(v); else if(k=="sigma") P.sigma=stod(v);
-        else if(k=="margin") P.margin=stod(v); else if(k=="safe") P.safe_margin=stod(v); else if(k=="tau") P.tau=stod(v);
+        else if(k=="margin") P.margin=stod(v); else if(k=="safe") P.safe_margin=stod(v); else if(k=="vcmF") P.vcmF=stod(v); else if(k=="vcmP") P.vcmP=stod(v); else if(k=="tau") P.tau=stod(v);
         else if(k=="chi") P.chi=stod(v); else if(k=="outlier") P.outlier=stod(v); else if(k=="vgain") P.vgain=stod(v); else if(k=="vnoise") P.vnoise=stod(v); else if(k=="maze") trace_maze=stoi(v);
         else { cerr<<"unknown key "<<k<<"\n"; return 1; } }
     if(mode=="trace"){
