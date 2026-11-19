@@ -1,5 +1,7 @@
 # AMS Micromouse
 
+**Adaptive Hybrid Control for Micromouse Navigation Under Real-World Constraints**
+
 [![build](https://github.com/vidit-16/AMS-Micromouse/actions/workflows/build.yml/badge.svg)](https://github.com/vidit-16/AMS-Micromouse/actions/workflows/build.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
@@ -98,12 +100,19 @@ Experiment definitions are in [docs/experiments.md](docs/experiments.md).
 
 ## Authors
 
-- **Vidit Choudhary** ([@vidit-16](https://github.com/vidit-16))
 - **Saransh Baid** ([@Saraid10](https://github.com/Saraid10))
+- **Vidit Choudhary** ([@vidit-16](https://github.com/vidit-16))
 - **Sakshi Bhongle** ([@sakshibhongle1221](https://github.com/sakshibhongle1221))
+- **Chinmay Jain**
+
+Under the guidance of **Mrs. Yashitha K**, Assistant Professor, Department of Robotics and Artificial Intelligence, Bangalore Institute of Technology, Bengaluru.
+
+## Publication
+
+S. Baid, V. Choudhary, S. S. Bhongle, C. Jain and Y. K, "Drift-Aware Hybrid Cost Models for Micromouse Speed-Run Planning: A Monte Carlo Study," *International Research Journal of Engineering and Technology (IRJET)*, vol. 13, no. 10, pp. 853–862, Oct. 2026.
 
 If you use this simulator, please cite it with [CITATION.cff](CITATION.cff) (GitHub's "Cite this repository" button).
 
 ## License
 
-[MIT](LICENSE) © 2026 Vidit Choudhary, Saransh Baid, Sakshi Bhongle
+[MIT](LICENSE) © 2026 Saransh Baid, Vidit Choudhary, Sakshi Bhongle, Chinmay Jain

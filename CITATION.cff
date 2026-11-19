@@ -1,17 +1,21 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "AMS Micromouse: a drift-aware cost-model simulator for micromouse robots"
+title: "AMS Micromouse: Adaptive Hybrid Control for Micromouse Navigation Under Real-World Constraints"
 type: software
 authors:
-  - given-names: Vidit
-    family-names: Choudhary
-    alias: vidit-16
   - given-names: Saransh
     family-names: Baid
     alias: Saraid10
-  - given-names: Sakshi
+  - given-names: Vidit
+    family-names: Choudhary
+    alias: vidit-16
+  - given-names: Sakshi Shankar
     family-names: Bhongle
     alias: sakshibhongle1221
+  - given-names: Chinmay
+    family-names: Jain
+  - given-names: Yashitha
+    family-names: K
 version: "3.1"
 date-released: "2026-10-10"
 license: MIT
@@ -22,3 +26,24 @@ keywords:
   - path planning
   - simulation
   - adaptive cost model
+preferred-citation:
+  type: article
+  title: "Drift-Aware Hybrid Cost Models for Micromouse Speed-Run Planning: A Monte Carlo Study"
+  authors:
+    - given-names: Saransh
+      family-names: Baid
+    - given-names: Vidit
+      family-names: Choudhary
+    - given-names: Sakshi Shankar
+      family-names: Bhongle
+    - given-names: Chinmay
+      family-names: Jain
+    - given-names: Yashitha
+      family-names: K
+  journal: "International Research Journal of Engineering and Technology (IRJET)"
+  volume: 13
+  issue: 10
+  year: 2026
+  month: 10
+  start: 853
+  issn: "2395-0056"
