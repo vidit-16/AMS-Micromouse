@@ -1,5 +1,14 @@
 # Changelog
 
+## v3.1
+
+- **VC-Margin baseline**: voltage compensation with a fixed friction allowance (`vcmF` = 5 % on straights, `vcmP` = 20 % on pivots).
+- **Fixed-Safe margin** reduced from 35 % to 30 %, the smallest multiple of 5 % that covers the largest slowdown in E1 plus noise.
+- **Experiment E11**: voltage-sensor gain error combined with partial exploration transfer in S1.
+- Default `braid` is now 0.05, the value used in every experiment.
+- `vgain` and `vnoise` are written for every row of `results/all_runs.csv.gz` (they were blank for some experiments).
+- Results regenerated: 106,500 trials, 958,500 runs. Rows of E1 to E10 are unchanged.
+
 ## v3
 
 Changes from v2, made in response to review feedback:

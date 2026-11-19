@@ -14,7 +14,7 @@ The simulator takes `key=value` arguments. Unknown keys are rejected with an err
 | `nmazes` | `100` | Number of mazes (maze *i* is generated from seed *i*) |
 | `reps` | `10` | Repetitions per maze (each with its own noise seed, shared across strategies) |
 | `maze` | `0` | Maze index used in `trace` mode |
-| `braid` | `0.10` | Fraction of remaining interior walls removed after generation (adds loops). The experiment scripts use `0.05` |
+| `braid` | `0.05` | Fraction of remaining interior walls removed after generation (adds loops) |
 
 The maze is fixed at 16 × 16 cells with the start in the top-left corner (open to the east) and an open 2 × 2 goal in the centre.
 
@@ -42,10 +42,12 @@ The true slowdown of primitive *m* at elapsed motion time *T* is `(1 / b(T)) · 
 | Key | Default | Meaning |
 |---|---|---|
 | `margin` | `0.02` | Command margin μ added to every commanded primitive time |
-| `safe` | `0.35` | Margin used by the Fixed-Safe baseline |
+| `safe` | `0.30` | Margin used by the Fixed-Safe baseline |
+| `vcmF` | `0.05` | Friction allowance of the VC-Margin baseline on forward moves |
+| `vcmP` | `0.20` | Friction allowance of the VC-Margin baseline on pivots |
 | `tau` | `0.0` | AMS drift threshold (%): AMS switches to the learned model only if max drift exceeds it |
-| `vgain` | `1.0` | Voltage-sensor gain error (VC, Hybrid) |
-| `vnoise` | `0.0` | Voltage-sensor relative noise (VC, Hybrid) |
+| `vgain` | `1.0` | Voltage-sensor gain error (VC, VC-Margin, Hybrid) |
+| `vnoise` | `0.0` | Voltage-sensor relative noise (VC, VC-Margin, Hybrid) |
 
 A trial **fails** when a commanded primitive time is below 98 % of the time the robot actually needs.
 
@@ -65,4 +67,8 @@ A trial **fails** when a commanded primitive time is below 98 % of the time the 
 - `ff_gain`: % saved over a cell-count shortest path (flood-fill style).
 - `est_*`, `n_*`: learned per-primitive factors and sample counts (AMS / Hybrid only).
 
-The experiment scripts add the parameter columns and an `exp` (experiment id) and `scen` (E1 scenario) column.
+The experiment scripts add the parameter columns and an `exp` (experiment id) and `scen` (E1 scenario) column. Every parameter column is filled in every row.
+
+Note on `steps`: for a failed run it counts the primitives completed before the failure, so use a strategy that always finishes (Fixed-Safe) to read a maze's path length.
+
+Every speed run starts in the start cell with the heading in which the return from exploration ended. The start cell is a dead end, so the first primitive of every run is a U-turn.

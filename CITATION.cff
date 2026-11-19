@@ -12,8 +12,8 @@ authors:
   - given-names: Sakshi
     family-names: Bhongle
     alias: sakshibhongle1221
-version: "3.0"
-date-released: "2026-10-09"
+version: "3.1"
+date-released: "2026-10-10"
 license: MIT
 repository-code: "https://github.com/vidit-16/AMS-Micromouse"
 keywords:

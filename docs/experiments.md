@@ -1,6 +1,6 @@
 # Experiments
 
-All experiments run 8 strategies on braided mazes (`braid=0.05`, `sigma=0.01`, `margin=0.02` unless varied). Results are stored together in `results/all_runs.csv.gz`; the `exp` column identifies the experiment.
+All experiments run 9 strategies on braided mazes (`braid=0.05`, `sigma=0.01`, `margin=0.02` unless varied). Results are stored together in `results/all_runs.csv.gz`; the `exp` column identifies the experiment.
 
 | Id | Script | Varies | Fixed settings | Reps |
 |---|---|---|---|---|
@@ -19,6 +19,9 @@ All experiments run 8 strategies on braided mazes (`braid=0.05`, `sigma=0.01`, `
 | **E10** | `run_sensor_experiments.py` | `vgain` 0.94 → 1.08 | S1 | 5 |
 | **E10s3** | `run_sensor_experiments.py` | `vgain` 0.94 → 1.08 | S3 | 5 |
 | **E10n** | `run_sensor_experiments.py` | `vnoise` 0 → 2 % | S1 | 5 |
+| **E11** | `run_sensor_experiments.py` | `vgain` ∈ {1.00, 1.01, 1.02, 1.04} × `chi` ∈ {0.5, 0.75, 0.9, 0.95, 1} | S1 | 5 |
+
+In total: 106,500 trials (one maze, noise realisation and parameter setting) and 958,500 runs (one strategy in one trial).
 
 ## Scenarios (E1)
 

@@ -5,12 +5,13 @@ Every trial explores the whole maze, returns to the start, builds a cost table f
 | Strategy | Cost table / commanded time | Sees voltage? | Learns from exploration? |
 |---|---|---|---|
 | **Fixed** | Nominal table + margin μ | No | No |
-| **Fixed-Safe** | Nominal table + 35 % margin | No | No |
+| **Fixed-Safe** | Nominal table + 30 % margin | No | No |
 | **VC** | Nominal / measured *b* (voltage feed-forward) | Yes | No |
-| **AMS** | Nominal × mean of observed exploration ratios per primitive; used only if drift > τ | No | Yes (mean) |
+| **VC-Margin** | VC with a fixed friction allowance (5 % on straights, 20 % on pivots) | Yes | No |
+| **AMS** (Adaptive Movement Strategy) | Nominal × mean of observed exploration ratios per primitive; used only if drift > τ (τ = 0 in the experiments, so always) | No | Yes (mean) |
 | **AMS-Med** | As AMS with the median | No | Yes (median) |
 | **Hybrid** | Voltage feed-forward × learned voltage-normalised residual (≥ 1) | Yes | Yes (mean) |
-| **Hybrid-Med** | As Hybrid with the median | Yes | Yes (median) |
+| **Hybrid-Med** (proposed) | As Hybrid with the median | Yes | Yes (median) |
 | **Oracle** | True factor at command time (reference only) | — | — |
 
 All strategies use common random numbers: for a given maze and repetition they see the same noise sequence, so differences come from the strategy alone.

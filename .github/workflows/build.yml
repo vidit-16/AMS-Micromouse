@@ -18,7 +18,7 @@ jobs:
         run: |
           ./build/micromouse_sim nmazes=2 reps=1 b0=0.9 rhoP=0.12 > out.csv
           cat out.csv
-          test "$(wc -l < out.csv)" -eq 17   # header + 2 mazes x 1 rep x 8 strategies
+          test "$(wc -l < out.csv)" -eq 19   # header + 2 mazes x 1 rep x 9 strategies
 
       - name: Smoke test (trace mode)
         run: |
