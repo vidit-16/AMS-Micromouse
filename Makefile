@@ -22,7 +22,7 @@ trace: $(SIM)
 experiments: $(SIM)
 	$(PYTHON) scripts/run_experiments.py
 
-# Voltage-sensor / transfer sweeps E10, E6b (appended to results/all_runs.csv.gz)
+# Voltage-sensor / transfer sweeps E10, E6b, E11 (added to results/all_runs.csv.gz)
 sensor-experiments: $(SIM)
 	$(PYTHON) scripts/run_sensor_experiments.py
 
